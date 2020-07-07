@@ -1,6 +1,7 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
+import Layout from "../views/Layout/index.vue"
 
 const originalReplace = VueRouter.prototype.replace;
 VueRouter.prototype.replace = function replace(location) {
@@ -31,11 +32,11 @@ const routes = [{
         name: "Console",
         redirect: 'index',
         meta: {
-            name: "控制台"
+            name: "控制台",
+            icon: "console"
         },
         //要用箭头函数
-        component: () =>
-            import ("../views/Layout/index.vue"),
+        component: Layout,
         children: [{
             path: "/index",
             name: "Index",
@@ -51,11 +52,11 @@ const routes = [{
         path: "/info",
         name: "Info",
         meta: {
-            name: "信息管理"
+            name: "信息管理",
+            icon: "info"
         },
         //要用箭头函数
-        component: () =>
-            import ("../views/Layout/index.vue"),
+        component: Layout,
         children: [{
                 path: "/infoIndex",
                 name: "InfoIndex",
@@ -82,11 +83,11 @@ const routes = [{
         path: "/user",
         name: "User",
         meta: {
-            name: "用户管理"
+            name: "用户管理",
+            icon: "user"
         },
         //要用箭头函数
-        component: () =>
-            import ("../views/Layout/index.vue"),
+        component: Layout,
         children: [{
             path: "/userIndex",
             name: "UserIndex",
