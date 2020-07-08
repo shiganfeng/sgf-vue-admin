@@ -1,5 +1,5 @@
 <template>
-    <div>console1111222223444433331</div>
+    <div>console</div>
 </template>
 <script>
 export default {
