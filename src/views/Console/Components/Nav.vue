@@ -1,6 +1,7 @@
 <template>
     <div id="nav-wrap">
-        <el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" 
+        <h1 class="logo"><img src="../../../assets/logo.png"></h1>
+        <el-menu default-active="1-4-1" class="el-menu-vertical-demo"
         :collapse="isCollapse"
         background-color="transparent"
         text-color="#fff"
@@ -25,20 +26,17 @@ export default {
     name: 'navMenu',
     data(){
         return{
-            isCollapse: false,
             routers: this.$router.options.routes
         }
     },
+    computed: {
+        isCollapse: function(){
+            return this.$store.state.app.isCollapse
+        }
+    },
     methods:{
-        handleOpen(key, keyPath) {
-        console.log(key, keyPath);
-      },
-        handleClose(key, keyPath) {
-        console.log(key, keyPath);
-      }
     },
     created(){
-        console.log(this.routers)
     }
     
 }
@@ -52,9 +50,32 @@ export default {
     height: 100vh;
     width: $navMenu;
     background-color: #344a5f;
+    -webkit-transition: all 0.3 ease 0s;
     svg{
         font-size: 20px;
         margin-right: 10px;
+    }
+    .logo{
+        img{
+            margin: 28px auto 25px;
+            width: 92px;
+            -webkit-transition: all 0.3 ease 0s;
+        }
+    }
+}
+
+.open{
+    #nav-wrap{
+        width: $navMenu;
+    }
+}
+
+.close{
+    #nav-wrap{
+        width: $navMenuMin;
+        .logo img{
+            width: 70%;
+        }
     }
 }
 </style>

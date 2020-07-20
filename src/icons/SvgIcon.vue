@@ -1,7 +1,7 @@
 <template>
     <svg :class="svgClass" aria-hidden="true">
         <use :xlink:href="myiconName"></use>
-    </svg>
+    </svg>
 
 </template>
 <script>
@@ -14,7 +14,6 @@ export default {
         }
     },
     created(){
-        console.log(this.$props.iconClass)
     },
     computed:{
         myiconName: function(){
