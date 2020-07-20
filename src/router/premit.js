@@ -10,8 +10,8 @@ router.beforeEach((to, from, next) => {
         if (to.path === '/login') {
             removeToken()
             removeUserName()
-            store.commit("SET_TOKEN", '')
-            store.commit("SET_USERNAME", '')
+            store.commit("app/SET_TOKEN", '')
+            store.commit("app/SET_USERNAME", '')
             next()
         } else {
             next()
