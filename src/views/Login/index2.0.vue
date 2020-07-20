@@ -235,8 +235,8 @@ export default {
             password: this.ruleForm.password,
             code: this.ruleForm.code
           }
-          //登录接口
-          Login(requestData).then((response) => {
+          //使用store里的login
+          this.$store.dispatch('app/login', requestData).then((response) => {
             let data = response.data
             this.$message({
               message: data.message,
@@ -255,6 +255,26 @@ export default {
               duration: 1000
             })
           })
+          //登录接口
+          // Login(requestData).then((response) => {
+          //   let data = response.data
+          //   this.$message({
+          //     message: data.message,
+          //     type: 'success',
+          //     duration: 1000
+          //   })
+          //   //页面跳转
+          //   this.$router.push({
+          //     name: 'Console'
+          //   })
+          //   console.log(data)
+          // }).catch((error) => {
+          //   this.$message({
+          //     message: error.message,
+          //     type: 'error',
+          //     duration: 1000
+          //   })
+          // })
         },
         //注册
         register(){
