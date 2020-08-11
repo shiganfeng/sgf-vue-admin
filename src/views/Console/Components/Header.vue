@@ -26,13 +26,22 @@ export default {
             this.$store.commit('app/SET_COLLAPSE')
         },
         //退出
-        exit(){
+        async exit(){
+            const confirm = await this.$confirm('是否退出登录', '提示', {
+                confirmButtonText: '确定',
+                cancleButtonText: '取消',
+                type: 'warning'
+            }).catch(() => {
+
+            })
+            if(confirm){
             this.$store.dispatch('app/exit').then( () => {
                 //路由跳转
                 this.$router.push({
                     name: 'Login'
                 })
             })
+        }
         }
     },
     computed: {

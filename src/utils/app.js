@@ -26,5 +26,5 @@ export function getUserName(value) {
 }
 
 export function removeUserName(value) {
-    return cookie.get(usernameKey)
+    return cookie.remove(usernameKey)
 }
