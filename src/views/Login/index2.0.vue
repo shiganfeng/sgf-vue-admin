@@ -123,8 +123,8 @@ export default {
         codeButtonText: '获取验证码',
             //表单数据
         ruleForm: {
-          username: '',
-          password: '',
+          username: '2454729834@qq.com',
+          password: 'sgf123456',
           passwords: '',
           code: ''
         },
@@ -167,7 +167,7 @@ export default {
             this.$message({
               message: '邮箱不能为空!!!',
               type: 'error',
-              duration: 1000
+              duration: 3000
             })
             return false
           }
@@ -175,7 +175,7 @@ export default {
             this.$message({
               message: '邮箱格式有误!!!',
               type: 'error',
-              duration: 1000
+              duration: 3000
             })
             return false
           }
@@ -192,7 +192,7 @@ export default {
               this.$message({
                 message: data.message,
                 type: 'success',
-                duration: 1000
+                duration: 3000
               })
               console.log(data.message)
               //启用登录或注册按钮
@@ -241,7 +241,7 @@ export default {
             this.$message({
               message: data.message,
               type: 'success',
-              duration: 1000
+              duration: 3000
             })
             //页面跳转
             this.$router.push({
@@ -252,7 +252,7 @@ export default {
             this.$message({
               message: error.message,
               type: 'error',
-              duration: 1000
+              duration: 3000
             })
           })
           //登录接口
@@ -289,7 +289,7 @@ export default {
             this.$message({
               message: data.message,
               type: 'success',
-              duration: 1000
+              duration: 3000
             })
             this.toggleMenu(this.menuTab[0])
             this.clearCountDown()
@@ -299,7 +299,7 @@ export default {
             this.$message({
               message: error.message,
               type: 'error',
-              duration: 1000
+              duration: 3000
             })
           })
         },
