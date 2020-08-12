@@ -39,7 +39,7 @@ export default {
 .content{
     width: 100%;
     height: 100%;
-    padding: 3opx 30px 0 30px;
+    padding: 30px 30px 30px 30px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     background-color: #fff;
