@@ -3,14 +3,14 @@
         <el-row :gutter='20'>
             <el-col :span='4'>
                 <div class="label-wrap category">
-                    <label>类型：</label>
+                    <label>分类：</label>
                     <div class="wrap-content">
                         <el-select v-model="category_value" style="width:120px;"> 
                             <el-option 
-                            v-for="item in options"
-                            :key="item.value"
-                            :label="item.label"
-                            :value="item.value">
+                            v-for="item in options.category"
+                            :key="item.id"
+                            :label="item.category_name"
+                            :value="item.id">
                             </el-option>
                         </el-select>
                     </div>
@@ -93,11 +93,12 @@
             </el-col>
         </el-row>
         <!--新增弹窗-->
-        <DialogInfo :flag="dialog_value" @close="fatherClose"/>
+        <DialogInfo :flag="dialog_value" @close="fatherClose" :category="options.category"/>
     </div>
 </template>
 <script>
 import DialogInfo from "./dialog/info";
+import { GetCategory } from '../../api/news.js';
 export default {
     name: 'InfoIndex',
     components: { DialogInfo },
@@ -106,22 +107,9 @@ export default {
         date_value: '',
         searck_keyWork: '',
         dialog_value: false,
-        options: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
-        }],
+        options: {
+            category: []
+        },
         searchOption: [{
             value: 'id',
             label: 'Id'
@@ -154,7 +142,21 @@ export default {
         search_key: ''
         }
     },
+    mounted(){
+        this.getCategory()
+    },
     methods: {
+        //获取分类
+        getCategory(){
+            GetCategory({}).then(response => {
+                console.log(response)
+                let data = response.data.data.data
+                console.log(data)
+                this.options.category = data
+            }).catch(error => {
+
+            })
+        },
         handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
       },

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
-
+import { getToken, getUserName } from './app.js'
 //创建axios，赋给变量service
 //前端api，http://www.web-jshtml.cn/dependenciesapi
 const BASEURL = process.env.NODE_ENV === 'production' ? '' : '/devApi';
@@ -13,7 +13,9 @@ const service = axios.create({
 service.interceptors.request.use(function(config) {
     // 在发送请求之前做些什么
     //后台需要前端这边传相关的参数
-    // config.headers['Tokey'] = '111'
+    config.headers['Tokey'] = getToken()
+    config.headers['UserName'] = getUserName()
+
     return config;
 }, function(error) {
     // 对请求错误做些什么
@@ -23,6 +25,7 @@ service.interceptors.request.use(function(config) {
 // 添加响应拦截器
 service.interceptors.response.use(function(response) {
     // 对响应数据做点什么
+    console.log(response.data)
     let data = response.data
     if (data.resCode !== 0) {
         Message({
