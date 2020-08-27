@@ -1,5 +1,5 @@
 <template>
-    <el-dialog title="新增" :visible.sync="dialog_info_flag" @close="childrenClose" width="580px" @opened="openDialog">
+    <el-dialog title="编辑" :visible.sync="dialog_info_flag" @close="childrenClose" width="580px" @opened="openDialog">
         <el-form :model="form" ref="categoryForm" :rules="rules">
             <el-form-item label="类别：" :label-width="formLabelWidth" prop="category">
                 <el-select v-model="form.category" placeholder="请选择活动区域">
@@ -20,7 +20,7 @@
     </el-dialog>
 </template>
 <script>
-import { AddInfo } from '../../../api/news.js'
+import { AddInfo, GetList, EditInfo } from '../../../api/news.js'
 export default {
     name: 'dialogInfo',
     data(){
@@ -44,6 +44,24 @@ export default {
         }
     },
     methods: {
+        getInfo(){
+            let requestData = {
+                pageNumber: 1,
+                pageSize: 1,
+                id: this.$props.id
+            }
+            GetList(requestData).then( response => {
+                let data = response.data.data.data[0]
+                console.log(data)
+                this.form = {
+                category: data.categoryId,
+                title: data.title,
+                content: data.content
+                }
+            }).catch( error => {
+
+            })
+        },
         childrenClose(){
             console.log("childrenClose")
             this.dialog_info_flag = false
@@ -53,17 +71,18 @@ export default {
         openDialog(){
             console.log(this.$props.category)
             this.categoryOptions = this.$props.category
+            this.getInfo()
         },
         submit(){
             this.submitLoading = true
-            let requestData = {      	
+            let requestData = {
+                id: this.$props.id,      	
                 categoryId: this.form.category,
                 title: this.form.title,
-                imgUrl: "http://********",
-                createDate: "2020-02-02 12:00:00",
                 content: this.form.content
             }
-            AddInfo(requestData).then( response => {
+            console.log(requestData)
+            EditInfo(requestData).then( response => {
                 console.log(response.data)
                 this.$message({
                     message: response.data.message,
@@ -71,10 +90,10 @@ export default {
                     duration: 2000
                 })
                 this.submitLoading = false
-                this.$refs.categoryForm.resetFields()
+                // this.$refs.categoryForm.resetFields()
             }).catch( error => {
                 this.submitLoading = false
-                this.$refs.categoryForm.resetFields()
+                // this.$refs.categoryForm.resetFields()
             })
         }
     },
@@ -87,6 +106,10 @@ export default {
         category: {
             type: Array,
             default: () => []
+        },
+        id: {
+            type: String,
+            default: ''
         }
     },
     watch: {

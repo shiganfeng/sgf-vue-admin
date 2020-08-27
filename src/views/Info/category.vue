@@ -15,7 +15,7 @@
                                 {{firstItem.category_name}}
                                 <div class="button-group">
                                     <el-button type="danger" round size="mini" @click="editCategory({data: firstItem, type: 'category_first_edit'})">编辑</el-button>
-                                    <el-button type="success" round size="mini">添加子级</el-button>
+                                    <el-button type="success" round size="mini" @click="addChildren({data: firstItem, type: 'category_children_add'})">添加子级</el-button>
                                     <el-button round size="mini" @click="deleteCategory(firstItem.id)">删除</el-button>
                                 </div>
                             </h4>
@@ -50,7 +50,7 @@
     </div>
 </template>
 <script>
-import { AddFirstCategory, GetCategory, DeleteCategory, EditCategory } from '../../api/news.js';
+import { AddFirstCategory, GetCategory, DeleteCategory, EditCategory, AddChildrenCategory, GetCategoryAll } from '../../api/news.js';
 
 export default {
     name: 'category',
@@ -72,7 +72,8 @@ export default {
         }
     },
     mounted(){
-        this.getCategory()
+        // this.getCategory()
+        this.getAllCategory()
     },
     methods: {
         submit(){
@@ -80,6 +81,8 @@ export default {
                 this.addFirstCategory()
             }else if(this.submit_button_type == 'category_first_edit'){
                 this.editFirstCategory()
+            }else if(this.submit_button_type == 'category_children_add'){
+                this.addChildrenCategory()
             }
         },
         addFirstCategory(){
@@ -140,6 +143,32 @@ export default {
 
             })
         },
+        addChildrenCategory(){
+            if(!this.form.secCategoryName){
+                this.$message({
+                    message: '子级分类名称不能为空',
+                    type: 'error',
+                    duration: 2000
+                })
+                return false;
+            }
+            let requestData = {
+                    categoryName: this.form.secCategoryName,
+                    parentId: this.current.id
+                    }
+            AddChildrenCategory(requestData).then( response => {
+                console.log(response.data.data)
+                this.$message({
+                    message: response.data.message,
+                    type: 'success',
+                    duration: 2000
+                })
+                this.form.secCategoryName = ''
+                this.getAllCategory()
+            }).catch( error => {
+
+            })
+        },
         addFirst(params){
             this.category_first_input = true
             this.category_children_input = false
@@ -148,10 +177,28 @@ export default {
             this.submit_button_type = params.type
             console.log(this.submit_button_type)
         },
+        //添加子级
+        addChildren(params){
+            this.current = params.data
+            this.form.categoryName = params.data.category_name
+            this.submit_button_type = params.type
+            this.category_children_disabled = false
+            this.submit_btn_disabled = false
+            this.category_children_input = true
+            this.category_first_disabled = true
+        },
         getCategory(){
             GetCategory({}).then(response => {
                 console.log(response)
                 this.category = response.data.data.data
+            }).catch(error => {
+
+            })
+        },
+        getAllCategory(){
+            GetCategoryAll({}).then(response => {
+                console.log(response)
+                this.category = response.data.data
             }).catch(error => {
 
             })
