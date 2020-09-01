@@ -62,8 +62,6 @@ export default {
     height: 75px;
     background-color: #fff;
     line-height: 75px;
-    -webkit-box-shadow: 0 3px 16px 0 rgba(0, 0, 0, .1);
-    -webkit-transition: all 0.3 ease 0s;
 }
 .header-icon{
     padding: 0 32px;

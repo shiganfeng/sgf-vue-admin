@@ -5,10 +5,14 @@ Vue.use(Vuex);
 
 import app from "./modules/app.js";
 import login from "./modules/login.js";
+import infoDetailed from "./modules/infoDetailed.js"
+import tabSwitch from "./modules/tabSwitch.js"
 
 export default new Vuex.Store({
     modules: {
         app,
-        login
+        login,
+        infoDetailed,
+        tabSwitch
     }
 });
