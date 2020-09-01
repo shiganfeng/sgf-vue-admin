@@ -14,8 +14,10 @@
                 <svg-icon :iconClass="item.meta.icon" :className="item.meta.icon"/>
                 <span slot="title">{{item.meta.name}}</span>
                 </template>
-                <!--子菜单-->
-                <el-menu-item :index="subItem.path" v-for="subItem in item.children" :key="subItem.id">{{subItem.meta.name}}</el-menu-item>
+                    <!--子菜单-->
+                    <template v-for="subItem in item.children">
+                        <el-menu-item :index="subItem.path"  v-if="!subItem.hidden" :key="subItem.id">{{subItem.meta.name}}</el-menu-item>
+                    </template>
             </el-submenu>
         </template>
         </el-menu>

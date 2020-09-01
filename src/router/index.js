@@ -28,6 +28,17 @@ const routes = [{
         }
     },
     {
+        path: "/test",
+        name: "Test",
+        hidden: true,
+        //要用箭头函数
+        component: () =>
+            import ("../views/test/test.vue"),
+        meta: {
+            name: "测试"
+        }
+    },
+    {
         path: "/console",
         name: "Console",
         redirect: 'index',
@@ -39,7 +50,7 @@ const routes = [{
         component: Layout,
         children: [{
             path: "/index",
-            name: "Index",
+            name: "首页",
             //要用箭头函数
             component: () =>
                 import ("../views/Console/index.vue"),
@@ -59,7 +70,7 @@ const routes = [{
         component: Layout,
         children: [{
                 path: "/infoIndex",
-                name: "InfoIndex",
+                name: "信息列表",
                 //要用箭头函数
                 component: () =>
                     import ("../views/Info/index.vue"),
@@ -69,12 +80,23 @@ const routes = [{
             },
             {
                 path: "/infoCategory",
-                name: "InfoCategory",
+                name: "信息分类",
                 //要用箭头函数
                 component: () =>
                     import ("../views/Info/category.vue"),
                 meta: {
                     name: "信息分类"
+                }
+            },
+            {
+                path: "/infoDetailed",
+                name: "信息详情",
+                hidden: true,
+                //要用箭头函数
+                component: () =>
+                    import ("../views/Info/detailed.vue"),
+                meta: {
+                    name: "信息详情"
                 }
             }
         ]
@@ -90,7 +112,7 @@ const routes = [{
         component: Layout,
         children: [{
             path: "/userIndex",
-            name: "UserIndex",
+            name: "用户列表",
             //要用箭头函数
             component: () =>
                 import ("../views/User/index.vue"),
@@ -98,7 +120,7 @@ const routes = [{
                 name: "用户列表"
             }
         }]
-    }
+    },
 ];
 
 const router = new VueRouter({

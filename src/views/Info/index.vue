@@ -67,14 +67,17 @@
             style="width: 100%"
             @selection-change="handleSelectionChange">
             <el-table-column type="selection" width="55"></el-table-column>
-            <el-table-column prop="title" label="标题" width="830"></el-table-column>
-            <el-table-column prop="categoryId" label="类别" width="130" :formatter="toCategoryId"></el-table-column>
+            <el-table-column prop="title" label="标题" width="750"></el-table-column>
+            <el-table-column prop="categoryId" label="类别" width="130" ></el-table-column>
             <el-table-column prop="createDate" label="日期" width="237" :formatter="toData"></el-table-column>
             <el-table-column prop="user" label="管理员" width="115"></el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope">
                     <el-button type="danger" size="mini" @click="deleteItem(scope.row.id)">删除</el-button>
                     <el-button size="mini" type="success" @click="editInfo(scope.row.id)">编辑</el-button>
+                    <router-link :to="`/infoDetailed?id=${scope.row.id}`">
+                        <el-button size="mini" type="success" @click="editInfo(scope.row.id)">编辑详情</el-button>
+                    </router-link>              
                 </template>
             </el-table-column>
         </el-table>

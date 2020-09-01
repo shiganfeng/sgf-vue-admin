@@ -16,7 +16,7 @@ router.beforeEach((to, from, next) => {
         } else {
             next()
         }
-        console.log('存在')
+        // console.log('存在')
     } else {
         if (whiteRouter.indexOf(to.path) !== -1) {
             next()
@@ -24,8 +24,8 @@ router.beforeEach((to, from, next) => {
             next('/login')
         }
 
-        console.log('不存在')
+        // console.log('不存在')
     }
-    console.log(to)
-        // next()
+    // console.log(to)
+    // next()
 })
