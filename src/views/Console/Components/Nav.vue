@@ -52,7 +52,6 @@ export default {
     height: 100vh;
     width: $navMenu;
     background-color: #344a5f;
-    -webkit-transition: all 0.3 ease 0s;
     svg{
         font-size: 20px;
         margin-right: 10px;
@@ -61,7 +60,6 @@ export default {
         img{
             margin: 28px auto 25px;
             width: 92px;
-            -webkit-transition: all 0.3 ease 0s;
         }
     }
 }

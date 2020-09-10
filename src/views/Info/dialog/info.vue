@@ -72,6 +72,7 @@ export default {
                 })
                 this.submitLoading = false
                 this.$refs.categoryForm.resetFields()
+                this.$emit('close', false)
             }).catch( error => {
                 this.submitLoading = false
                 this.$refs.categoryForm.resetFields()

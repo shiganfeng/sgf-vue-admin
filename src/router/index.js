@@ -8,7 +8,8 @@ VueRouter.prototype.push = function push(location) {
     return originalPush.call(this, location).catch(err => err);
 };
 
-const routes = [{
+//默认路由
+export const defaultRouterMap = [{
         path: "/",
         redirect: "login",
         hidden: true,
@@ -58,11 +59,15 @@ const routes = [{
                 name: "首页"
             }
         }]
-    },
-    {
+    }
+]
+
+//动态路由
+export const asyncRouterMap = [{
         path: "/info",
         name: "Info",
         meta: {
+            system: '信息功能', //自定义key
             name: "信息管理",
             icon: "info"
         },
@@ -105,6 +110,7 @@ const routes = [{
         path: "/user",
         name: "User",
         meta: {
+            system: '用户功能',
             name: "用户管理",
             icon: "user"
         },
@@ -120,11 +126,12 @@ const routes = [{
                 name: "用户列表"
             }
         }]
-    },
-];
+    }
+]
+
 
 const router = new VueRouter({
-    routes
+    routes: defaultRouterMap
 });
 
 export default router;

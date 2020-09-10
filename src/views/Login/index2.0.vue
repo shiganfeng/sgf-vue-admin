@@ -123,7 +123,7 @@ export default {
         codeButtonText: '获取验证码',
             //表单数据
         ruleForm: {
-          username: '2454729834@qq.com',
+          username: '63537646@qq.com',
           password: 'sgf123456',
           passwords: '',
           code: ''
