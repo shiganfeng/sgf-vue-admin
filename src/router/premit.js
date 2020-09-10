@@ -14,7 +14,26 @@ router.beforeEach((to, from, next) => {
             store.commit("app/SET_USERNAME", '')
             next()
         } else {
-            next()
+            //获取用户角色
+            //动态路由分配
+            if (store.getters['permission/roles'].length == 0) {
+                store.dispatch('permission/getRoles').then(response => {
+                    let role = response
+                    store.dispatch('permission/createRouter', role).then(response => {
+                        let addRouters = store.getters['permission/addRouters']
+                        let allRouters = store.getters['permission/allRouters']
+                            //路由更新
+                        router.options.routes = allRouters
+                            //添加动态路由
+                        router.addRoutes(addRouters)
+                        next({...to, replace: true })
+                            //es6扩展运算符，防止内容发生变化的情况
+                            //不被记录历史记录
+                    })
+                })
+            } else {
+                next()
+            }
         }
         // console.log('存在')
     } else {
