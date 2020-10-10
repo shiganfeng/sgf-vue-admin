@@ -1,6 +1,6 @@
 const state = {
-    openTab: JSON.parse(localStorage.getItem('tabSwitch')) || [], //所有打开的路由
-    activeIndex: localStorage.getItem('activtIndex') || '/console' //激活状态
+    openTab: JSON.parse(localStorage.getItem('tabSwitch')) || [{ "route": "/index", "name": "首页" }], //所有打开的路由
+    activeIndex: localStorage.getItem('activtIndex') || '/index' //激活状态
 }
 
 const getters = {
@@ -10,6 +10,7 @@ const getters = {
 const mutations = { //同步，不需要回调处理事情
     // 添加tabs
     add_tabs(state, data) {
+        console.log(data)
         state.openTab.push(data);
     },
     // 删除tabs

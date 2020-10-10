@@ -1,9 +1,9 @@
 <template>
-    <div>console</div>
+    <div>404</div>
 </template>
 <script>
 export default {
-    name: 'index',
+    name: 'Page404'
     
 }
 </script>

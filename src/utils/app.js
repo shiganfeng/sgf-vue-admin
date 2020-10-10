@@ -28,3 +28,12 @@ export function getUserName() {
 export function removeUserName(value) {
     return cookie.remove(usernameKey)
 }
+
+
+export function removeOpenTab(value) {
+    return localStorage.removeItem('tabSwitch')
+}
+
+export function resetActiveIndex(value) {
+    return localStorage.setItem('activeIndex', value)
+}

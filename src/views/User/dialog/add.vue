@@ -26,6 +26,11 @@
                     <el-checkbox v-for="item in roleItem" :key="item.role" :label="item.name"></el-checkbox>
                 </el-checkbox-group>
             </el-form-item>
+            <el-form-item label="按钮权限：" :label-width="formLabelWidth" prop="role">
+                <el-checkbox-group v-model="form.btnPerm">
+                    <el-checkbox v-for="item in btnPerm" :key="item.name" :label="item.name"></el-checkbox>
+                </el-checkbox-group>
+            </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button @click="childrenClose">取 消</el-button>
@@ -35,7 +40,7 @@
 </template>
 <script>
 import { AddInfo } from '../../../api/news.js'
-import { GetRole, UserAdd, UserEdit, GetSystem } from '../../../api/user.js'
+import { GetRole, UserAdd, UserEdit, GetSystem, GetPermButton } from '../../../api/user.js'
 import  CityPicker  from '../../Console/Components/CityPicker/city.vue'
 import { provide } from '@vue/composition-api'
 import {stripscript,validateEmail,validateMyPassword,validateMyCode} from '../../../utils/validate.js'
@@ -94,6 +99,7 @@ export default {
             roleStatus: '1',
             roleCode: [],
             roleItem: [],
+            btnPerm: [],
             dialog_info_flag: false,
             submitLoading: false,
             form: {
@@ -103,7 +109,8 @@ export default {
                 phone: '',
                 region: '',
                 status: '1',
-                role: []
+                role: [],
+                btnPerm: []
                 },
             formLabelWidth: '100px',
         rules: {
@@ -132,8 +139,14 @@ export default {
             })
         },
         getRole(){
-            GetRole().then(response => {
-                this.roleItem = response.data.data
+            // GetRole().then(response => {
+            //     this.roleItem = response.data.data
+            // }).catch(error => {
+
+            // })
+            GetPermButton().then(response => {
+                this.btnPerm = response.data.data
+                console.log(this.btnPerm)
             }).catch(error => {
 
             })
@@ -152,15 +165,16 @@ export default {
         },
         openDialog(){
             this.getSystem()
-            // this.getRole()
+            this.getRole()
             console.log(this.$props.editData)
             let editData = this.$props.editData
             if(editData.id){
                 //编辑
-                editData.role = editData.role.split(',')
+                editData.role = editData.role ? editData.role.split(',') : []
+                editData.btnPerm = editData.btnPerm ? editData.btnPerm.split(',') : []
                 //循环JSON对象
                 for(let key in editData){
-                    this.form[key] = editData.id ? editData[key] : ''
+                    this.form[key] = editData[key]
                 }
             }else{
                 //添加
@@ -228,6 +242,7 @@ export default {
             //浅拷贝Object.assign({},this.form) //拷贝出来的就是一个对象
             let requestData = JSON.parse(JSON.stringify(this.form))
             requestData.role = requestData.role.join()
+            requestData.btnPerm = requestData.btnPerm.join()
             requestData.region = JSON.stringify(this.cityPickerData)
             console.log(requestData)
             if(requestData.id){  

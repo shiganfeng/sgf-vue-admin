@@ -14,6 +14,7 @@ export const defaultRouterMap = [{
         redirect: "login",
         hidden: true,
         meta: {
+            keepAlive: true,
             name: "主页"
         }
     },
@@ -25,6 +26,7 @@ export const defaultRouterMap = [{
         component: () =>
             import ("../views/Login/index2.0.vue"),
         meta: {
+            keepAlive: false,
             name: "登录"
         }
     },
@@ -36,6 +38,7 @@ export const defaultRouterMap = [{
         component: () =>
             import ("../views/test/test.vue"),
         meta: {
+            keepAlive: false,
             name: "测试"
         }
     },
@@ -56,9 +59,22 @@ export const defaultRouterMap = [{
             component: () =>
                 import ("../views/Console/index.vue"),
             meta: {
+                keepAlive: true,
                 name: "首页"
             }
         }]
+    },
+    //404页面
+    {
+        path: "/404",
+        meta: {
+            name: "404",
+            icon: "404"
+        },
+        hidden: true,
+        //要用箭头函数
+        component: () =>
+            import ("../views/404.vue")
     }
 ]
 
@@ -80,6 +96,7 @@ export const asyncRouterMap = [{
                 component: () =>
                     import ("../views/Info/index.vue"),
                 meta: {
+                    keepAlive: true,
                     name: "信息列表"
                 }
             },
@@ -90,17 +107,19 @@ export const asyncRouterMap = [{
                 component: () =>
                     import ("../views/Info/category.vue"),
                 meta: {
+                    keepAlive: true,
                     name: "信息分类"
                 }
             },
             {
-                path: "/infoDetailed",
+                path: "/infoDetailed/:id",
                 name: "信息详情",
-                hidden: true,
+                hidden: false,
                 //要用箭头函数
                 component: () =>
                     import ("../views/Info/detailed.vue"),
                 meta: {
+                    keepAlive: true,
                     name: "信息详情"
                 }
             }
@@ -123,9 +142,15 @@ export const asyncRouterMap = [{
             component: () =>
                 import ("../views/User/index.vue"),
             meta: {
+                keepAlive: true,
                 name: "用户列表"
             }
         }]
+    },
+    {
+        path: "*",
+        redirect: "/404",
+        hidden: true
     }
 ]
 

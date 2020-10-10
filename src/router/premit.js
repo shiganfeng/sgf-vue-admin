@@ -29,6 +29,7 @@ router.beforeEach((to, from, next) => {
                         next({...to, replace: true })
                             //es6扩展运算符，防止内容发生变化的情况
                             //不被记录历史记录
+                            ////
                     })
                 })
             } else {

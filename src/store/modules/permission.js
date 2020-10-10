@@ -25,10 +25,10 @@ const mutations = { //同步，不需要回调处理事情
 
 const actions = {
     //获取用户角色
-    getRoles({ commit }, requestData) {
+    getRoles({ commit }) {
         return new Promise((resolve, reject) => {
             //接口
-            GetSystemRole(requestData).then((response) => {
+            GetSystemRole().then((response) => {
                 let role = response.data.data.role
                 commit('SET_ROLES', role)
                 resolve(role)
@@ -55,6 +55,7 @@ const actions = {
                         return item
                     }
                 })
+                addRouters.push(asyncRouterMap[asyncRouterMap.length - 1])
             }
             //更新路由
             commit('SET_ROUTER', addRouters)
