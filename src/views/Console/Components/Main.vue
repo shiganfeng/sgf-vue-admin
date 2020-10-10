@@ -14,15 +14,27 @@
                     <el-tab-pane
                     :key="item.path"
                     v-for="(item, index) in openTab"
-                    :label="item.name"
+                    :label="item.route"
                     :name="item.route"
                     >
-                    <keep-alive>
-                        <router-view></router-view>
-                    </keep-alive>
+                    <!-- <router-view v-if="!$route.meta.keepAlive"></router-view> -->
                     </el-tab-pane>
                 </el-tabs>
-                
+                <!-- <div>
+                    <div v-for="(item, index) in openTab">
+                      <div>{{item.route == activeIndex}}</div>
+                      <div>item.route:{{item.route}}</div>
+                      <div>activeIndex:{{activeIndex}}</div>
+                      <div>openTab:{{openTab}}</div>
+                    </div>
+                </div> -->
+                <keep-alive :include="['index','InfoIndex','category','UserIndex','infoDetailder']">
+                  <router-view></router-view>
+                </keep-alive>
+                <!-- <keep-alive>
+                  <router-view v-if="$route.meta.keepAlive"></router-view>
+                </keep-alive>
+                <router-view v-if="!$route.meta.keepAlive"></router-view> -->
                 </div>
             </div>
         </div>
@@ -32,21 +44,19 @@
 export default {
     data(){
         return{
-            activeName: '1',
         }
     },
     methods:{
     //tab标签点击时，切换相应的路由
     tabClick(tab){
-      console.log(this.openTab)
       console.log('active',this.activeIndex);
       this.$router.push({path: this.activeIndex});
+      // this.$router.push({name: '信息详情'});
     },
     //移除tab标签
     tabRemove(targetName){
-      console.log("tabRemove",targetName);
       //首页不删
-      if(targetName == '/'||targetName == '/console'){
+      if(targetName == '/'||targetName == '/index'){
         return
       }
       this.$store.commit('tabSwitch/delete_tabs', targetName);
@@ -107,20 +117,21 @@ export default {
         //判断路由是否已经打开
         //已经打开的 ，将其置为active
         //未打开的，将其放入队列里
-        console.log(this.openTab)
+        // console.log(this.openTab)
         let flag = false;
         for(let item of this.openTab){
-          console.log("item.name",item.name)
-          console.log("to.name",to.name)
+          // console.log("item.name",item.name)
+          // console.log("to.name",to.name)
+          // console.log(item)
+          // console.log(to)
 
-          if(item.name === to.name){
+          if(item.route === to.fullPath){
             console.log('to.path',to.path);
             this.$store.commit('tabSwitch/set_active_index',to.path)
             flag = true;
             break;
           }
         }
-
         if(!flag){
           console.log('to.path',to.path);
           this.$store.commit('tabSwitch/add_tabs', {route: to.path, name: to.name});

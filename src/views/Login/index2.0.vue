@@ -123,7 +123,7 @@ export default {
         codeButtonText: '获取验证码',
             //表单数据
         ruleForm: {
-          username: '63537646@qq.com',
+          username: '2454729834@qq.com',
           password: 'sgf123456',
           passwords: '',
           code: ''
@@ -146,6 +146,9 @@ export default {
     },
     created(){},
     mounted(){},
+    destroyed(){
+      clearInterval(this.timer)
+    },
     methods: {
         toggleMenu(data){
             // for(var i =0;i<this.menuTab.length;i++){
@@ -200,6 +203,8 @@ export default {
               //倒计时
               this.countDown(3)
             }).catch(error => {
+              this.codeButtonStatus.status = false
+              this.codeButtonStatus.text = '再次获取'
               console.log(error)
             })
           },2000)

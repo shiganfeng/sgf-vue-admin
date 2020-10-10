@@ -1,4 +1,4 @@
-import { setToken, setUserName, getUserName, removeToken, removeUserName } from "../../utils/app.js";
+import { setToken, setUserName, getUserName, removeToken, removeUserName, removeOpenTab, resetActiveIndex } from "../../utils/app.js";
 import { Login } from "../../api/login.js";
 
 const state = {
@@ -38,6 +38,7 @@ const actions = {
                 content.commit('SET_USERNAME', data.username)
                 setToken(data.token)
                 setUserName(data.username)
+                resetActiveIndex('/index')
                 resolve(response)
             }).catch((error) => {
                 reject(error)
@@ -49,6 +50,8 @@ const actions = {
         return new Promise((resolve, reject) => {
             removeToken()
             removeUserName()
+            removeOpenTab()
+            resetActiveIndex('/index')
             content.commit('SET_TOKEN', '')
             content.commit('SET_USERNAME', '')
             resolve()

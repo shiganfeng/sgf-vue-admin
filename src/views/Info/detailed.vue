@@ -59,8 +59,16 @@ export default {
         }
     },
     created(){
-        let id = this.$route.query.id
-        console.log(this.$route.query.id)
+        console.log('creted')
+        let id = this.$route.params.id
+        console.log(id)
+        this.$store.commit('infoDetailed/SET_ID', id)
+        this.getCategory()
+        this.getInfo()
+    },
+    activated(){
+        console.log('activated')
+        let id = this.$route.params.id
         this.$store.commit('infoDetailed/SET_ID', id)
         this.getCategory()
         this.getInfo()
@@ -80,8 +88,9 @@ export default {
             let requestData = {
                 pageNumber: 1,
                 pageSize: 1,
-                id: this.$route.query.id
+                id: this.$route.params.id || this.$store.getters['infoDetailed/id']
             }
+            console.log(requestData.id)
             GetList(requestData).then( response => {
                 let data = response.data.data.data[0]
                 console.log(data)
@@ -97,7 +106,7 @@ export default {
         submit(){
             this.submitLoading = true
             let requestData = {
-                id: this.$route.query.id,      	
+                id: this.$route.params.id,      	
                 categoryId: this.form.categoryId,
                 title: this.form.title,
                 content: this.form.content

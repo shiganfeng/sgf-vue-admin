@@ -1,12 +1,11 @@
-import { setToken, setUserName, getUserName, removeToken, removeUserName } from "../../utils/app.js";
-import { Login } from "../../api/login.js";
-
 const state = {
     id: '',
     title: ''
 }
 
-const getters = {}
+const getters = {
+    id: state => state.id,
+}
 
 const mutations = { //同步，不需要回调处理事情
     SET_ID(state, value) {

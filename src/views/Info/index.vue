@@ -75,9 +75,10 @@
                 <template slot-scope="scope">
                     <el-button type="danger" size="mini" @click="deleteItem(scope.row.id)">删除</el-button>
                     <el-button size="mini" type="success" @click="editInfo(scope.row.id)">编辑</el-button>
-                    <router-link :to="`/infoDetailed?id=${scope.row.id}`">
-                        <el-button size="mini" type="success" @click="editInfo(scope.row.id)">编辑详情</el-button>
-                    </router-link>              
+                    <!-- <router-link :to="`/infoDetailed/:id=${scope.row.id}`">
+                        <el-button size="mini" type="success">编辑详情</el-button>
+                    </router-link>               -->
+                    <el-button size="mini" type="success" @click="xiangqing(scope.row.id)">编辑详情</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -148,6 +149,13 @@ export default {
         this.getList()
     },
     methods: {
+        //编辑
+        xiangqing(rowid){
+            this.$router.push({
+                name: '信息详情',
+                params: {id : rowid}
+            })
+        },
         editInfo(id){
             this.dialog_value_edit = true
             this.infoId = id
