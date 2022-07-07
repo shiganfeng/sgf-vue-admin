@@ -13,7 +13,7 @@
     "cookie_js": "^1.4.0",
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",
-    "moment": "^2.27.0",
+    "moment": "^2.29.4",
     "svg-sprite-loader": "^5.0.0",
     "vue": "^2.6.11",
     "vue-quill-editor": "^3.0.6",
